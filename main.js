@@ -58,12 +58,34 @@ const saisirUneColonne = () => {
   return parseInt(readline.question("Quelle colonne choisissez-vous? "));
 };
 
+/**
+ * Fonction qui permet de retourner si une colonne est vide (return true ou false)
+ * @param {Number} line 
+ * @param {Number} column 
+ * @returns 
+ */
+const verificationCaseVide = (line, column) => {
+  //Quand une case est vide, elle est égale à 0
+  return puissance4[line][column - 1] === 0; //column -1 pour pouvoir empiler les jetons
+};
+
+/**
+ *Fonction qui permet de trouver la 1ère ligne vide d'une colonne
+ * @param {Number} colonne
+ * @returns 
+ */
 const retournerLigneCaseVideDeColonne = (colonne) => {
-  return 5;
+  //Pour parcourir la grille de haut en bas, on boucle en décrémentant
+  for (let i = nbLigne - 1; i >= 0; i--) {
+    //On vérifie si la ligne est vide
+    if (verificationCaseVide(i, colonne)) return i;
+  }
+  //Si la case n'est pas vide on retourne -1
+  return -1;
 };
 
 const verificationFinPartie = () => {
-  return true;
+  return false;
 };
 
 /**
