@@ -2,14 +2,35 @@ const readline = require("readline-sync");
 let puissance4 = [];
 const nbColonne = 7;
 const nbLigne = 6;
-const caractereJoueur1 = "x";
-const caractereJoueur2 = "o";
+
+/**
+ * Fonction qui permet de renvoyer du texte saisi au clavier
+ * @param {String} txt
+ * @returns
+ */
+ const saisirTexte = (txt) => {
+  return readline.question(txt);
+};
+
+/**
+ * Fonction qui permet de choisir le caractère utilisé pour chaque joueur
+ * @param {String} joueur 
+ * @returns 
+ */
+const choixCaractere = (joueur) => {
+  let txt = `Veuillez choisir le caractere du joueur ${joueur}: `;
+  return saisirTexte(txt);
+};
+
+
+const caractereJoueur1 = choixCaractere(1);
+const caractereJoueur2 = choixCaractere(2);
 
 /**
  * Fonction qui permet d'initialiser un tableau à vide en fonction d'un nombre de ligne et de colonne passées
  * en paramètre
- * @param {number} nbLigne
- * @param {number} nbColonne
+ * @param {Number} nbLigne
+ * @param {Number} nbColonne
  * @param {*} car
  * @returns
  */
@@ -50,19 +71,20 @@ const afficherPuissance4 = (tab, j1, j2) => {
   }
 };
 
+
 /**
  * Fonction qui permet de saisir une colonne
  * @returns
  */
 const saisirUneColonne = () => {
-  return parseInt(readline.question("Quelle colonne choisissez-vous? "));
+  return parseInt(saisirTexte("Quelle colonne choisissez-vous? "));
 };
 
 /**
  * Fonction qui permet de retourner si une colonne est vide (return true ou false)
- * @param {Number} line 
- * @param {Number} column 
- * @returns 
+ * @param {Number} line
+ * @param {Number} column
+ * @returns
  */
 const verificationCaseVide = (line, column) => {
   //Quand une case est vide, elle est égale à 0
@@ -72,7 +94,7 @@ const verificationCaseVide = (line, column) => {
 /**
  *Fonction qui permet de trouver la 1ère ligne vide d'une colonne
  * @param {Number} colonne
- * @returns 
+ * @returns
  */
 const retournerLigneCaseVideDeColonne = (colonne) => {
   //Pour parcourir la grille de haut en bas, on boucle en décrémentant
@@ -84,11 +106,10 @@ const retournerLigneCaseVideDeColonne = (colonne) => {
   return -1;
 };
 
-
 /**
  * Fonction qui permet de vérifier si un joueur à aligné 4 jetons horizontalement
- * @param {Number} joueur 
- * @returns 
+ * @param {Number} joueur
+ * @returns
  */
 const verificationLigne = (joueur) => {
   for (let i = nbLigne - 1; i >= 0; i--) {
@@ -109,12 +130,12 @@ const verificationLigne = (joueur) => {
 
 /**
  * Fonction qui permet de vérifier si un joueur à aligné 4 jetons verticalement
- * @param {Number} joueur 
- * @returns 
+ * @param {Number} joueur
+ * @returns
  */
 const verificationColonne = (joueur) => {
-  for (let j = 0; j<nbColonne; j++) {
-    for (let i = nbLigne-4; i>=0; i--) {
+  for (let j = 0; j < nbColonne; j++) {
+    for (let i = nbLigne - 4; i >= 0; i--) {
       if (
         puissance4[i][j] === joueur &&
         puissance4[i + 1][j] === joueur &&
@@ -130,8 +151,8 @@ const verificationColonne = (joueur) => {
 
 /**
  * Fonction qui permet de vérifier si un joueur à aligné 4 jetons en diagonale
- * @param {Number} joueur 
- * @returns 
+ * @param {Number} joueur
+ * @returns
  */
 const verificationDiagonale = (joueur) => {
   // i>=3 car si pas d'alignement avant alors impossible d'en avoir 4 à la suite
@@ -140,28 +161,28 @@ const verificationDiagonale = (joueur) => {
       //On check en diagonale vers la droite
       if (
         puissance4[i][j] === joueur &&
-        puissance4[i-1][j + 1] === joueur &&
-        puissance4[i-2][j + 2] === joueur &&
-        puissance4[i-3][j + 3] === joueur
-      ) return true;
+        puissance4[i - 1][j + 1] === joueur &&
+        puissance4[i - 2][j + 2] === joueur &&
+        puissance4[i - 3][j + 3] === joueur
+      )
+        return true;
       //On check en diagonale vers la gauche
       if (
         puissance4[i][j] === joueur &&
-        puissance4[i-1][j - 1] === joueur &&
-        puissance4[i-2][j - 2] === joueur &&
-        puissance4[i-3][j - 3] === joueur
-      ) return true;
-
+        puissance4[i - 1][j - 1] === joueur &&
+        puissance4[i - 2][j - 2] === joueur &&
+        puissance4[i - 3][j - 3] === joueur
+      )
+        return true;
     }
   }
   return false;
-
 };
 
 /**
  * Fonction qui permet de vérifier si un joueur a gagné
- * @param {Number} joueur 
- * @returns 
+ * @param {Number} joueur
+ * @returns
  */
 const verificationFinPartie = (joueur) => {
   if (
@@ -191,6 +212,16 @@ const jouerCase = (joueur) => {
   afficherPuissance4(puissance4, caractereJoueur1, caractereJoueur2);
   return verificationFinPartie(joueur);
 };
+
+const presentation = () => {
+  let txt = "******************************************************** \n";
+  txt += "***********Bienvenue sur le jeu du puissance 4********** \n";
+  txt += "******************************************************** \n";
+  return txt;
+};
+
+
+console.log(presentation());
 
 puissance4 = initialiserTableauVide(nbColonne, nbLigne, 0);
 afficherPuissance4(puissance4, caractereJoueur1, caractereJoueur2);
