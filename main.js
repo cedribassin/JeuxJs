@@ -84,7 +84,93 @@ const retournerLigneCaseVideDeColonne = (colonne) => {
   return -1;
 };
 
-const verificationFinPartie = () => {
+
+/**
+ * Fonction qui permet de vérifier si un joueur à aligné 4 jetons horizontalement
+ * @param {Number} joueur 
+ * @returns 
+ */
+const verificationLigne = (joueur) => {
+  for (let i = nbLigne - 1; i >= 0; i--) {
+    //nbColonne-3 car si aucun alignement jusqu'à la 5ème colonne => impossible d'en faire 4 à la suite
+    for (let j = 0; j < nbColonne - 3; j++) {
+      if (
+        puissance4[i][j] === joueur &&
+        puissance4[i][j + 1] === joueur &&
+        puissance4[i][j + 2] === joueur &&
+        puissance4[i][j + 3] === joueur
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
+/**
+ * Fonction qui permet de vérifier si un joueur à aligné 4 jetons verticalement
+ * @param {Number} joueur 
+ * @returns 
+ */
+const verificationColonne = (joueur) => {
+  for (let j = 0; j<nbColonne; j++) {
+    for (let i = nbLigne-4; i>=0; i--) {
+      if (
+        puissance4[i][j] === joueur &&
+        puissance4[i + 1][j] === joueur &&
+        puissance4[i + 2][j] === joueur &&
+        puissance4[i + 3][j] === joueur
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
+/**
+ * Fonction qui permet de vérifier si un joueur à aligné 4 jetons en diagonale
+ * @param {Number} joueur 
+ * @returns 
+ */
+const verificationDiagonale = (joueur) => {
+  // i>=3 car si pas d'alignement avant alors impossible d'en avoir 4 à la suite
+  for (let i = nbLigne - 1; i >= 3; i--) {
+    for (let j = 0; j < nbColonne; j++) {
+      //On check en diagonale vers la droite
+      if (
+        puissance4[i][j] === joueur &&
+        puissance4[i-1][j + 1] === joueur &&
+        puissance4[i-2][j + 2] === joueur &&
+        puissance4[i-3][j + 3] === joueur
+      ) return true;
+      //On check en diagonale vers la gauche
+      if (
+        puissance4[i][j] === joueur &&
+        puissance4[i-1][j - 1] === joueur &&
+        puissance4[i-2][j - 2] === joueur &&
+        puissance4[i-3][j - 3] === joueur
+      ) return true;
+
+    }
+  }
+  return false;
+
+};
+
+/**
+ * Fonction qui permet de vérifier si un joueur a gagné
+ * @param {Number} joueur 
+ * @returns 
+ */
+const verificationFinPartie = (joueur) => {
+  if (
+    verificationLigne(joueur) ||
+    verificationColonne(joueur) ||
+    verificationDiagonale(joueur)
+  ) {
+    return true;
+  }
   return false;
 };
 
@@ -103,7 +189,7 @@ const jouerCase = (joueur) => {
   }
   puissance4[ligneVide][colonne - 1] = joueur;
   afficherPuissance4(puissance4, caractereJoueur1, caractereJoueur2);
-  return verificationFinPartie();
+  return verificationFinPartie(joueur);
 };
 
 puissance4 = initialiserTableauVide(nbColonne, nbLigne, 0);
