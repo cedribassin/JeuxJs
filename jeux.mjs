@@ -1,5 +1,5 @@
-import toolbox from "./toolbox.mjs";
-
+/* import toolbox from "./toolbox.mjs";
+ */
 const jeux = {
   puissance4: [],
   nbColonne: 7,
@@ -9,9 +9,9 @@ const jeux = {
 
   initialisation: function () {
     this.puissance4 = toolbox.initialiserTableauVide(
-    this.nbColonne,
-    this.nbLigne,
-    0
+      this.nbColonne,
+      this.nbLigne,
+      0
     );
   },
 
@@ -23,7 +23,7 @@ const jeux = {
    * Fonction qui permet d'afficher le tableau de puissance 4
    */
   afficherPuissance4: function () {
-    for (let i = 0; i < this.puissance4.length; i++) {
+    /*     for (let i = 0; i < this.puissance4.length; i++) {
       let ligne = "";
       for (let j = 0; j < this.puissance4[i].length; j++) {
         ligne += "| ";
@@ -38,6 +38,32 @@ const jeux = {
       }
       console.log(ligne);
     }
+ */
+    const jeu = document.querySelector("#jeu");
+    jeu.innerHTML = ""; // => Permet de réinitialiser la grille à chaque fois
+    //On créer la grille avec un tableau:
+    let grid = "<table class='text-center'>";
+    for (let i = 0; i < this.nbLigne; i++) {
+      grid += "<tr>"; //=> ligne en html
+      for (let j = 0; j < this.nbColonne; j++) {
+        grid +=
+          "<td class='border text-center' style='width:75px; height:75px'>";
+        grid += "</td>";
+      }
+      grid += "</tr>"; //On ferme la ligne dans le for
+      //On rajoute des boutons
+    }
+    grid += "<tr>";
+      grid += "<td><button type='button' class='btn btn-secondary'>colonne 1</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary'>colonne 2</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary'>colonne 3</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary'>colonne 4</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary'>colonne 5</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary'>colonne 6</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary'>colonne 7</button></td>";
+    grid += "</tr>";
+    grid += "</table>";
+    jeu.innerHTML = grid;
   },
 
   /**
@@ -162,4 +188,5 @@ const jeux = {
   },
 };
 
-export default jeux;
+/* export default jeux;
+ */

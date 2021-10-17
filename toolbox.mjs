@@ -1,5 +1,6 @@
 //Fonctions génériques
-import readline from "readline-sync";
+/* import readline from "readline-sync";
+ */
 const toolbox = {
   /**
    * Fonction qui permet d'initialiser un tableau à vide en fonction d'un nombre de ligne et de colonne passées
@@ -25,9 +26,10 @@ const toolbox = {
    * @param {String} txt
    * @returns
    */
-  saisirText: function (txt) {
+/*   saisirText: function (txt) {
     return readline.question(txt);
   },
+  */
 };
-
-export default toolbox;
+/* export default toolbox;
+ */
