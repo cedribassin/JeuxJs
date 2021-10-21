@@ -48,19 +48,28 @@ const jeux = {
       for (let j = 0; j < this.nbColonne; j++) {
         grid +=
           "<td class='border text-center' style='width:75px; height:75px'>";
+          if(this.puissance4[i][j]===0){
+            grid+="";
+          } else if(this.puissance4[i][j]===1){
+            grid+="<img class='rounded-circle' style='width:75px; height:75px' src='./images/j1.png'/>";
+          } else if(this.puissance4[i][j]===2){
+            grid+="<img class='rounded-circle' style='width:75px; height:75px' src='./images/j2.png'/>";
+          }
+
+
         grid += "</td>";
       }
       grid += "</tr>"; //On ferme la ligne dans le for
       //On rajoute des boutons
     }
     grid += "<tr>";
-      grid += "<td><button type='button' class='btn btn-secondary'>colonne 1</button></td>";
-      grid += "<td><button type='button' class='btn btn-secondary'>colonne 2</button></td>";
-      grid += "<td><button type='button' class='btn btn-secondary'>colonne 3</button></td>";
-      grid += "<td><button type='button' class='btn btn-secondary'>colonne 4</button></td>";
-      grid += "<td><button type='button' class='btn btn-secondary'>colonne 5</button></td>";
-      grid += "<td><button type='button' class='btn btn-secondary'>colonne 6</button></td>";
-      grid += "<td><button type='button' class='btn btn-secondary'>colonne 7</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary' onClick='jouerCase(1)'>colonne 2</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary' onClick='jouerCase(2)'>colonne 3</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary' onClick='jouerCase(3)'>colonne 4</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary' onClick='jouerCase(4)'>colonne 5</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary' onClick='jouerCase(5)'>colonne 6</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary' onClick='jouerCase(6)'>colonne 7</button></td>";
+      grid += "<td><button type='button' class='btn btn-secondary' onClick='jouerCase(7)'>colonne 1</button></td>";
     grid += "</tr>";
     grid += "</table>";
     jeu.innerHTML = grid;
