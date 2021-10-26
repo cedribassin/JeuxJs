@@ -1,13 +1,25 @@
 
 let joueurCourant = 1;
-const tour = document.querySelector("#tour");
+const tour = $('#tour');
 let finJeu = false; 
-const alert = document.querySelector(".alert");
+const alert = $('.alert');
+let j1 = $('#j1');
+let j2 =$('#j2');
+let pointJ1=0;
+let pointJ2=0;
+
 
 const gestionFinPartie = (joueur) => {
   finJeu=true;
-  alert.innerHTML=`Fin de la partie, félicitation joueur ${joueur}`;
-  alert.classList.remove("d-none");
+  let contentAlert=`Fin de la partie, félicitation joueur ${joueur}`;
+  contentAlert+='<button type="button" class="btn btn-secondary mx-5" onClick="initialiserTableau()">Recommencer</button>';
+  alert.html(contentAlert);
+  alert.removeClass("d-none");
+  if(joueurCourant===1){
+    pointJ1++;
+  }else{
+    pointJ2++;
+  }
 }
 
 const jouerCase = (colonne) => {
@@ -23,15 +35,15 @@ const jouerCase = (colonne) => {
       }
       if(joueurCourant===1){
         joueurCourant=2;
-        tour.textContent="Tour du joueur 2";
-        tour.style.backgroundColor="#F5D12D";
-        tour.style.color="black";
+        tour.html("Tour du joueur 2");
+        tour.addClass('background-color="#F5D12D"');
+        tour.addClass('color="black"');
 
       } else {
         joueurCourant=1;
-        tour.textContent="Tour du joueur 1";
-        tour.style.backgroundColor="#F5392D";
-        tour.style.color="black";
+        tour.html("Tour du joueur 1");
+        tour.addClass('background-color="#F5392D"');
+        tour.addClass('color="black"');
       }
     }
   }
@@ -46,8 +58,22 @@ const jouerCase = (colonne) => {
   jeux.afficherPuissance4();
   return jeux.verificationFinPartie(joueur); */
 };
+const initialiserTableau = ()=>{
+  finJeu = false;
+  alert.addClass("d-none");
+ let contentJ1 ='<img class="rounded-circle" style="width:75px; height:75px;" src="./images/j1.png"/></br>';
+  contentJ1+=pointJ1;
+  j1.html(contentJ1);
+
+  let contentJ2 ='<img class="rounded-circle" style="width:75px; height:75px;" src="./images/j2.png"/></br>';
+  contentJ2+=pointJ2;
+  j2.html(contentJ2);
+
+  jeux.initialisation();
+  jeux.afficherPuissance4();  
+}
+
+initialiserTableau();
 
 
-jeux.initialisation();
-jeux.afficherPuissance4();
 
